@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for loc in $(cat locale-a); do
+  validlocale "$loc" || sudo locale-gen "$loc"
+done

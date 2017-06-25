@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+OS=$(lsb_release -is)
+DIST=$(lsb_release -cs)
+ARCH=$(dpkg --print-architecture)
+DIR="$OS/$DIST/$ARCH"
+
+mkdir -p $DIR
+env -i locale --version > $DIR/00-VERSION
+
+for LANG in $(locale -a); do
+  env -i LANG=$LANG sort list > $DIR/$LANG
+done
